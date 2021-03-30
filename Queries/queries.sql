@@ -122,9 +122,37 @@ SELECT ce.emp_no,
 ce.first_name,
 ce.last_name,
 d.dept_name
-INTO dept_info
+-- INTO dept_info
+FROM current_emp as ce
+INNER JOIN dept_emp AS de
+ON (ce.emp_no = de.emp_no)
+WHERE d.dept_name = ('sales')
+INNER JOIN departments AS d
+ON (de.dept_no = d.dept_no);
+-- Chart for specific depts
+SELECT ce.emp_no,
+ce.first_name,
+ce.last_name,
+d.dept_name
+INTO sales_info
 FROM current_emp as ce
 INNER JOIN dept_emp AS de
 ON (ce.emp_no = de.emp_no)
 INNER JOIN departments AS d
-ON (de.dept_no = d.dept_no);
+ON (de.dept_no = d.dept_no)
+WHERE d.dept_name = ('Sales') OR d.dept_name = ('Development');
+
+
+-- Deliverable 1: Steps 1-7
+SELECT em.emp_no,
+    em.first_name,
+em.last_name,
+    t.title,
+	t.from_date,
+    t.to_date
+INTO retirement_titles
+FROM employees as em
+INNER JOIN titles as t
+ON (em.emp_no = t.emp_no)
+WHERE (em.birth_date BETWEEN '1952-01-01' AND '1955-12-31')
+ORDER BY em.emp_no;
